@@ -1,5 +1,5 @@
-Wotrandcamo
-===========
+Wotrc
+=====
 
 Random camouflage mod for World of Tanks
 
