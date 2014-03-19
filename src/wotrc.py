@@ -12,9 +12,14 @@ def new_va_getCamouflageParams(self, vehicle):
     result = old_va_getCamouflageParams(self, vehicle)
     if result[0] is not None:
         return result
+    arenaType = BigWorld.player().arena.arenaType
+    camouflageKind = arenaType.vehicleCamouflageKind
     vDesc = vehicle.typeDescriptor
     customization = items.vehicles.g_cache.customization(vDesc.type.customizationNationID)
-    camouflages = customization['camouflages'].keys()
+    camouflages = []
+    for key in customization['camouflages']:
+        if customization['camouflages'][key]['kind'] == camouflageKind:
+            camouflages.append(key)
     camouflages.append(None)
     camouflageId = vehicle.id % len(camouflages)
     return (camouflages[camouflageId], int(time.time()), 7)
