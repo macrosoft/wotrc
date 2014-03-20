@@ -35,9 +35,13 @@ def new_cs_recreateVehicle(self, vDesc, vState, onVehicleLoadedCallback = None):
     customization = items.vehicles.g_cache.customization(vDesc.type.customizationNationID)
     camouflages = customization['camouflages'].keys()
     camouflages.append(None)
-    vDesc.camouflages = ((random.choice(camouflages), int(time.time()), 7), \
-        (random.choice(camouflages), int(time.time()), 7), \
-        (random.choice(camouflages), int(time.time()), 7))
+    tmpCamouflages = []
+    for i in range(0, 3):
+        if vDesc.camouflages[i][0] is not None:
+            tmpCamouflages.append(vDesc.camouflages[i])
+        else:
+            tmpCamouflages.append((random.choice(camouflages), int(time.time()), 7))
+    vDesc.camouflages = tuple(tmpCamouflages)
     old_cs_recreateVehicle(self, vDesc, vState, onVehicleLoadedCallback)
 
 ClientHangarSpace.recreateVehicle = new_cs_recreateVehicle
