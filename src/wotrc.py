@@ -20,8 +20,11 @@ def new_va_getCamouflageParams(self, vehicle):
     vDesc = vehicle.typeDescriptor
     customization = items.vehicles.g_cache.customization(vDesc.type.customizationNationID)
     camouflages = []
+    remap = {'vehicles/british/Camouflage/GB_victim_yellow.dds': 2}
     for key in customization['camouflages']:
-        if customization['camouflages'][key]['kind'] == camouflageKind:
+        camuflage = customization['camouflages'][key]
+        kind = remap.get(camuflage['texture'], camuflage['kind'])
+        if kind == camouflageKind:
             camouflages.append(key)
     camouflages.append(None)
     camouflageId = vehicle.id % len(camouflages)
