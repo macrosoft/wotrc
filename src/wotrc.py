@@ -2,12 +2,29 @@
 # -*- coding: utf-8 -*-
 import BigWorld
 import items.vehicles
+import os
+import json
 import random
 import time
 from gui import g_tankActiveCamouflage
 from gui.ClientHangarSpace import ClientHangarSpace
 from VehicleAppearance import VehicleAppearance
+from xml.dom import minidom
 from debug_utils import *
+
+class Config(object):
+
+    def __init__(self):
+        path_items = minidom.parse(os.path.join(os.getcwd(), 'paths.xml')).getElementsByTagName('Path')
+        for root in path_items:
+            path = os.path.join(os.getcwd(), root.childNodes[0].data)
+            if os.path.isdir(path):
+                conf_file = os.path.join(path, 'scripts', 'client', 'mods', 'wotrc.json')
+                if os.path.isfile(conf_file):
+                    with open(conf_file) as data_file:
+                        jsConfig = json.load(data_file)
+                        break
+        self.remap = jsConfig.get('remap', {})
 
 old_va_getCamouflageParams = VehicleAppearance._VehicleAppearance__getCamouflageParams
 
@@ -20,10 +37,9 @@ def new_va_getCamouflageParams(self, vehicle):
     vDesc = vehicle.typeDescriptor
     customization = items.vehicles.g_cache.customization(vDesc.type.customizationNationID)
     camouflages = []
-    remap = {'vehicles/british/Camouflage/GB_victim_yellow.dds': 2}
     for key in customization['camouflages']:
         camuflage = customization['camouflages'][key]
-        kind = remap.get(camuflage['texture'], camuflage['kind'])
+        kind = cfg.remap.get(camuflage['texture'], camuflage['kind'])
         if kind == camouflageKind:
             camouflages.append(key)
     camouflages.append(None)
@@ -48,3 +64,5 @@ def new_cs_recreateVehicle(self, vDesc, vState, onVehicleLoadedCallback = None):
     old_cs_recreateVehicle(self, vDesc, vState, onVehicleLoadedCallback)
 
 ClientHangarSpace.recreateVehicle = new_cs_recreateVehicle
+
+cfg = Config()
