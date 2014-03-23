@@ -2,6 +2,7 @@
     "remap": {
         "vehicles/russian/Camouflage/Rus_Victim_Black.dds": -1,
         "vehicles/german/Camouflage/Cger_1_3YellowBacillus.dds": 2,
+        "vehicles/german/Camouflage/Germany_Victim_Black.dds": 2,
         "vehicles/american/Camouflage/usa_victim_red.dds": 1,
         "vehicles/american/Camouflage/usa_victim_yellow.dds": 2,
         "vehicles/french/Camouflage/franch_victim_red.dds": 1,
