@@ -9,5 +9,8 @@
         "vehicles/french/Camouflage/franch_victim_yellow.dds": 2,
         "vehicles/british/Camouflage/GB_victim_red.dds": 1,
         "vehicles/british/Camouflage/GB_victim_yellow.dds": 2
-    }
+    },
+    "disable": [
+        "germany:Karl"
+    ]
 }

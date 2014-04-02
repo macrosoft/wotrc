@@ -26,6 +26,7 @@ class Wotrc(object):
                         jsConfig = json.load(data_file)
                         break
         self.remap = jsConfig.get('remap', {})
+        self.disable = jsConfig.get('disable', [])
         self.hangarCamo = {}
 
 old_onBecomeNonPlayer = Account.onBecomeNonPlayer
@@ -42,9 +43,11 @@ def new_va_getCamouflageParams(self, vehicle):
     result = old_va_getCamouflageParams(self, vehicle)
     if result[0] is not None:
         return result
+    vDesc = vehicle.typeDescriptor
+    if vDesc.name in wotrc.disable:
+        return result
     arenaType = BigWorld.player().arena.arenaType
     camouflageKind = arenaType.vehicleCamouflageKind
-    vDesc = vehicle.typeDescriptor
     customization = items.vehicles.g_cache.customization(vDesc.type.customizationNationID)
     camouflages = []
     for key in customization['camouflages']:
@@ -63,7 +66,7 @@ old_cs_recreateVehicle = ClientHangarSpace.recreateVehicle
 def new_cs_recreateVehicle(self, vDesc, vState, onVehicleLoadedCallback = None):
     if wotrc.hangarCamo.has_key(vDesc.type.compactDescr):
         vDesc.camouflages = wotrc.hangarCamo[vDesc.type.compactDescr]
-    else:
+    elif vDesc.name not in wotrc.disable:
         customization = items.vehicles.g_cache.customization(vDesc.type.customizationNationID)
         camouflages = customization['camouflages'].keys()
         camouflages.append(None)
