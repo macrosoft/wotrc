@@ -9,7 +9,10 @@
         "vehicles/french/Camouflage/franch_victim_yellow.dds": 2,
         "vehicles/british/Camouflage/GB_victim_red.dds": 1,
         "vehicles/british/Camouflage/GB_victim_yellow.dds": 2,
-        "vehicles/chinese/Camouflage/china_silver.dds": 0
+        "vehicles/chinese/Camouflage/china_silver.dds": 0,
+        "vehicles/chinese/Camouflage/IGR_Ch_Summer.dds": -1,
+        "vehicles/chinese/Camouflage/IGR_Ch_Winter.dds": -1,
+        "vehicles/german/Camouflage/IGR_Winter.dds": -1
     },
     "disable": [
         "germany:Karl"
