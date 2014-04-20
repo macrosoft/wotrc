@@ -69,6 +69,10 @@ def new_cs_recreateVehicle(self, vDesc, vState, onVehicleLoadedCallback = None):
     elif vDesc.name not in wotrc.disable:
         customization = items.vehicles.g_cache.customization(vDesc.type.customizationNationID)
         camouflages = customization['camouflages'].keys()
+        camouflages = filter(lambda key: 0 <= \
+            wotrc.remap.get(customization['camouflages'][key]['texture'], \
+            customization['camouflages'][key]['kind']) \
+            <= 2, camouflages)
         camouflages.append(None)
         tmpCamouflages = []
         for i in range(0, 3):
