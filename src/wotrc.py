@@ -3,6 +3,7 @@
 import BigWorld
 import items.vehicles
 import os
+import ResMgr
 import json
 import random
 import time
@@ -10,17 +11,18 @@ from Account import Account
 from gui import g_tankActiveCamouflage
 from gui.ClientHangarSpace import ClientHangarSpace
 from VehicleAppearance import VehicleAppearance
-from xml.dom import minidom
 from debug_utils import *
 
 class Wotrc(object):
 
     def __init__(self):
-        path_items = minidom.parse(os.path.join(os.getcwd(), 'paths.xml')).getElementsByTagName('Path')
-        for root in path_items:
-            path = os.path.join(os.getcwd(), root.childNodes[0].data)
+        res = ResMgr.openSection('../paths.xml')
+        sb = res['Paths']
+        vals = sb.values()[0:2]
+        for vl in vals:
+            path = vl.asString + '/scripts/client/mods/'
             if os.path.isdir(path):
-                conf_file = os.path.join(path, 'scripts', 'client', 'mods', 'wotrc.json')
+                conf_file = path + 'wotrc.json'
                 if os.path.isfile(conf_file):
                     with open(conf_file) as data_file:
                         jsConfig = json.load(data_file)
