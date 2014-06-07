@@ -54,7 +54,7 @@ def new_va_getCamouflageParams(self, vehicle):
     camouflages = []
     for key in customization['camouflages']:
         camuflage = customization['camouflages'][key]
-        kind = wotrc.remap.get(camuflage['texture'], camuflage['kind'])
+        kind = wotrc.remap.get(camuflage['name'], camuflage['kind'])
         if kind == camouflageKind:
             camouflages.append(key)
     camouflages.append(None)
@@ -72,7 +72,7 @@ def new_cs_recreateVehicle(self, vDesc, vState, onVehicleLoadedCallback = None):
         customization = items.vehicles.g_cache.customization(vDesc.type.customizationNationID)
         camouflages = customization['camouflages'].keys()
         camouflages = filter(lambda key: 0 <= \
-            wotrc.remap.get(customization['camouflages'][key]['texture'], \
+            wotrc.remap.get(customization['camouflages'][key]['name'], \
             customization['camouflages'][key]['kind']) \
             <= 2, camouflages)
         camouflages.append(None)
