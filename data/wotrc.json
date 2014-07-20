@@ -16,6 +16,8 @@
         "Rus_Victim_Silver": 0,
         "usa_victim_red": 1,
         "usa_victim_yellow": 2,
+        "World_Cup_Blue": 1,
+        "World_Cup_Red": 1,
         "YellowBacillus": 2
     },
     "disable": [
