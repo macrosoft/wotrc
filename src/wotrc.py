@@ -53,8 +53,8 @@ def new_va_getCamouflageParams(self, vehicle):
     customization = items.vehicles.g_cache.customization(vDesc.type.customizationNationID)
     camouflages = []
     for key in customization['camouflages']:
-        camuflage = customization['camouflages'][key]
-        kind = wotrc.remap.get(camuflage['name'], camuflage['kind'])
+        camouflage = customization['camouflages'][key]
+        kind = wotrc.remap.get(camouflage['name'], camouflage['kind'])
         if kind == camouflageKind:
             camouflages.append(key)
     camouflages.append(None)
