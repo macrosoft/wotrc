@@ -20,6 +20,9 @@
         "YellowBacillus": 2
     },
     "disable": [
-        "germany:Karl"
+        "germany:Karl",
+        "ussr:R00_T_50_2",
+        "usa:A00_T110E5",
+        "france:F00_AMX_50Foch_155"
     ]
 }
