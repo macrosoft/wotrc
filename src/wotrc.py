@@ -10,7 +10,7 @@ import time
 from Account import Account
 from gui import g_tankActiveCamouflage
 from gui.ClientHangarSpace import ClientHangarSpace
-from VehicleAppearance import VehicleAppearance
+from vehicle_systems.CompoundAppearance import CompoundAppearance
 from debug_utils import *
 
 class Wotrc(object):
@@ -39,10 +39,10 @@ def new_onBecomeNonPlayer(self):
 
 Account.onBecomeNonPlayer = new_onBecomeNonPlayer
 
-old_va_getCamouflageParams = VehicleAppearance._VehicleAppearance__getCamouflageParams
+old_ca_getCamouflageParams = CompoundAppearance._CompoundAppearance__getCamouflageParams
 
-def new_va_getCamouflageParams(self, vehicle):
-    result = old_va_getCamouflageParams(self, vehicle)
+def new_ca_getCamouflageParams(self, vehicle):
+    result = old_ca_getCamouflageParams(self, vehicle)
     if result[0] is not None:
         return result
     vDesc = vehicle.typeDescriptor
@@ -61,7 +61,7 @@ def new_va_getCamouflageParams(self, vehicle):
     camouflageId = vehicle.id % len(camouflages)
     return (camouflages[camouflageId], int(time.time()), 7)
 
-VehicleAppearance._VehicleAppearance__getCamouflageParams = new_va_getCamouflageParams
+CompoundAppearance._CompoundAppearance__getCamouflageParams = new_ca_getCamouflageParams
 
 old_cs_recreateVehicle = ClientHangarSpace.recreateVehicle
 
